@@ -1,0 +1,8 @@
+{
+  "name": "@app/back-template",
+  "private": true,
+  "workspaces": [
+    "libs/*",
+    "apps/*"
+  ]
+}

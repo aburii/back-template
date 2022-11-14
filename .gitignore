@@ -1,0 +1,7 @@
+/node_modules
+**/*.d.ts
+**/*.js
+!.eslintrc.js
+**/*.js.map
+**/node_modules
+**/dist

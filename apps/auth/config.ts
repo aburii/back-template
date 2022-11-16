@@ -1,14 +1,3 @@
-export interface DatabaseConfig {
-  uri: string,
-  user: string,
-  pwd: string,
-}
-
-export interface JwtConfig {
-  secret: string,
-  saltRounds: number,
-}
-
 export const config = () => ({
   port: process.env.PORT,
   jwt: {

@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { boostrapApp } from '@app/nest-common';
+import { AuthModule } from './app.module';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  boostrapApp();
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const app = await NestFactory.create(AuthModule);
+  const configService = app.get(ConfigService);
+  const port = configService.get<number>('PORT')
+  await app.listen(port, () => { console.log("App is listening on port " + port)});
 }
 bootstrap();

@@ -8,7 +8,6 @@ export class DatabaseModule {
     return {
       global: true,
       module: DatabaseModule,
-      imports: [ConfigModule],
       providers: [DatabaseService],
       exports: [DatabaseService],
     };

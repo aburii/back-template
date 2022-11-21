@@ -1,18 +1,12 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { DatabaseService } from './database.service';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
-
-export interface DatabaseOptions {
-  type: 'mongodb' | 'mysql', // Add as more type of database as u want
-  logging: boolean,
-  migrations: Array<string>,
-  entities: Array<string>
-}
+import { IDatabaseOptions } from './interface/IDatabaseOptions';
 
 @Module({})
 export class DatabaseModule {
-  static register(options: DatabaseOptions): DynamicModule {
+  static register(options: IDatabaseOptions): DynamicModule {
     return {
       global: true,
       module: DatabaseModule,

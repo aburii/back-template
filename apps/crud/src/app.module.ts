@@ -12,7 +12,12 @@ import { DatabaseModule } from '@app/database';
       cache: true,
       load: [config]
     }),
-    DatabaseModule.forRoot()
+    DatabaseModule.register({
+      type: 'mongodb',
+      logging: false,
+      migrations: [],
+      entities: []
+    })
   ],
   controllers: [CrudController],
   providers: [CrudService],

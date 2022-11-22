@@ -1,22 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@app/database';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DeleteResult, InsertResult, Repository } from 'typeorm';
 
 @Injectable()
 export class CrudService {
 
+  constructor(
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
+  ) {}
+
   async findAllUsers(): Promise<Array<User>> {
-    return await User.find({})
+    return await this.usersRepository.find()
   }
 
-  async insertUser(email: string, password: string): Promise<User> {
-    const user = User.create();
-    user.email = email;
-    user.password = password;
-    return await user.save()
+  async insertUser(email: string, password: string): Promise<InsertResult> {
+    return await this.usersRepository.insert({email, password});
   }
 
-  async deleteUserById(id: string): Promise<User> {
-    const userToDelete = await User.findOne({where: {id: parseInt(id)}})
-    return await userToDelete.remove();
+  async deleteUserById(id: string): Promise<DeleteResult> {
+    return await this.usersRepository.delete(id)
   }
 }

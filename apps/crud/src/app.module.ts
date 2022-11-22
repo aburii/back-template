@@ -3,7 +3,8 @@ import { CrudController } from './app.controller';
 import { CrudService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { config } from 'config';
-import { DatabaseModule } from '@app/database';
+import { DatabaseModule, User } from '@app/database';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { DatabaseModule } from '@app/database';
     DatabaseModule.register({
       type: 'mysql',
       logging: true,
-    })
+    }),
+    TypeOrmModule.forFeature([User])
   ],
   controllers: [CrudController],
   providers: [CrudService],

@@ -13,8 +13,8 @@ import { DatabaseModule } from '@app/database';
       load: [config]
     }),
     DatabaseModule.register({
-      type: 'mongodb',
-      logging: false,
+      type: 'mysql',
+      logging: true,
     })
   ],
   controllers: [AuthController],

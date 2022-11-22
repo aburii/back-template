@@ -15,8 +15,6 @@ import { DatabaseModule } from '@app/database';
     DatabaseModule.register({
       type: 'mongodb',
       logging: false,
-      migrations: [],
-      entities: []
     })
   ],
   controllers: [AuthController],

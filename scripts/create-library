@@ -58,10 +58,14 @@ do
         :)  echo "Error: -${OPTARG} requires an argument."
             exit_abnormal
             ;;
-        *) exit_abnormal
+        a*) exit_abnormal
 
     esac
 done
+
+if [ "${lib_name}" == "" ]; then
+    exit_abnormal
+fi
 
 cd ../libs || exit ; mkdir "$lib_name" ; cd "$lib_name" || exit;
 

@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, ValidationPipe } from '@nestjs/common';
 import { CrudService } from './app.service';
-import { User } from '@app/database';
+import { User } from '@app/user';
 import { DeleteResult, InsertResult, MongoRepository } from 'typeorm';
-import { CreateUserDto } from './dto/CreateUserDto';
+import { CreateUserDto } from '@app/user';
 
 @Controller('users')
 export class CrudController {

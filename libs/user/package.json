@@ -1,5 +1,5 @@
 {
-  "name": "@app/nest-extension",
+  "name": "@app/user",
   "version": "0.0.1",
   "main": "dist/index.js",
   "license": "UNLICENSED",

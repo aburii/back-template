@@ -5,6 +5,6 @@ export class CreateUserDto {
   email: string;
 
   @IsString({ message: "Password given is not a string" })
-  @MinLength(6, { message: "Password minimum size: 6" })
+  @MinLength(6)
   password: string
 }

@@ -1,2 +1,2 @@
-export * from './src/database.module'
-export * from './src/entities/user.entity'
+export * from './src/exceptions/query-failed-filter'
+export * from './src/exceptions/query-failed-exception'

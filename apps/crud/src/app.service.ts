@@ -1,18 +1,23 @@
-import { Injectable } from '@nestjs/common';
-import { User } from '@app/database';
-import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, InsertResult, Repository } from 'typeorm';
+import {
+  Injectable, InternalServerErrorException,
+  UseFilters
+} from '@nestjs/common';
+import { QueryFailedFilter } from '@app/database';
+import { DeleteResult, InsertResult } from 'typeorm';
+import { User, UserRepository } from '@app/user';
 
 @Injectable()
+@UseFilters(new QueryFailedFilter())
 export class CrudService {
 
-  constructor(
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
-  ) {}
+  constructor(private readonly usersRepository: UserRepository) {}
 
   async findAllUsers(): Promise<Array<User>> {
-    return await this.usersRepository.find()
+    return await this.usersRepository.find();
+  }
+
+  async findUserById(id: number): Promise<User> {
+    return await this.usersRepository.findOneBy({id: id});
   }
 
   async insertUser(email: string, password: string): Promise<InsertResult> {
@@ -20,10 +25,6 @@ export class CrudService {
   }
 
   async deleteUserById(id: number): Promise<DeleteResult> {
-    return await this.usersRepository.delete(id)
-  }
-
-  async findUserById(id: number) {
-    return await this.usersRepository.findOneBy({id: id});
+    return await this.usersRepository.delete(id);
   }
 }

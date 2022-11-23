@@ -213,9 +213,9 @@ echo "module.exports = {
 };" > ".eslintrc.js"
 echo -e "${Green}[Created] ${Color_Off}eslintrc.js"
 
-touch "index.js"
-echo "export * from \"./src/$lib_name.module.ts\"" > "index.js"
-echo -e "${Green}[Created] ${Color_Off}index.js"
+touch "index.ts"
+echo "export * from \"./src/$lib_name.module.ts\"" > "index.ts"
+echo -e "${Green}[Created] ${Color_Off}index.ts"
 
 touch "jest.config.json"
 echo "{

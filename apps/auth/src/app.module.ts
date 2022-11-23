@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './app.controller';
 import { AuthService } from './app.service';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { config } from 'config'
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { DatabaseModule } from '@app/database/dist/src/database.module';
 
 @Module({
   imports: [
@@ -12,21 +12,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       cache: true,
       load: [config]
     }),
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
-        return {
-          type: 'mysql',
-          host: configService.get<string>('database.host'),
-          port: configService.get<number>('database.port'),
-          database: (configService.get<string>('env') == 'development') ? 'test' : configService.get<string>('database.name'),
-          username: configService.get<string>('database.username'),
-          password: configService.get<string>('database.password'),
-          synchronize: configService.get<string>('env') == 'development',
-          migrations: ["../migrations/*.{js|ts}"],
-          entities: [],
-        }
-      }
+    DatabaseModule.register({
+      type: 'mysql',
+      entities: [],
+      migrations: [__dirname + "../migrations/*.{ts|js}"],
     }),
   ],
   controllers: [AuthController],

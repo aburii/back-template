@@ -19,7 +19,11 @@ export class CrudService {
     return await this.usersRepository.insert({email, password});
   }
 
-  async deleteUserById(id: string): Promise<DeleteResult> {
+  async deleteUserById(id: number): Promise<DeleteResult> {
     return await this.usersRepository.delete(id)
+  }
+
+  async findUserById(id: number) {
+    return await this.usersRepository.findOneBy({id: id});
   }
 }

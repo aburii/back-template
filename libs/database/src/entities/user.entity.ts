@@ -1,15 +1,13 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { IsEmail } from 'class-validator';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 @Entity()
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false, type: 'text'})
-  @IsEmail({ message: "Email is invalid"})
+  @Column({ unique: true, nullable: false, type: 'varchar' })
   email: string;
 
-  @Column({ nullable: false, type: 'text' })
+  @Column({ nullable: false, type: 'varchar' })
   password: string;
 }

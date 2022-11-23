@@ -1,8 +1,8 @@
 import {
-  Injectable, InternalServerErrorException,
+  Injectable,
   UseFilters
 } from '@nestjs/common';
-import { QueryFailedFilter } from '@app/database';
+import { QueryFailedException, QueryFailedFilter } from '@app/database';
 import { DeleteResult, InsertResult } from 'typeorm';
 import { User, UserRepository } from '@app/user';
 
@@ -13,18 +13,34 @@ export class CrudService {
   constructor(private readonly usersRepository: UserRepository) {}
 
   async findAllUsers(): Promise<Array<User>> {
-    return await this.usersRepository.find();
+    try {
+      return await this.usersRepository.find();
+    } catch (e) {
+      throw new QueryFailedException(e.message, e.driverError.code);
+    }
   }
 
   async findUserById(id: number): Promise<User> {
-    return await this.usersRepository.findOneBy({id: id});
+    try {
+      return await this.usersRepository.findOneBy({id: id});
+    } catch (e) {
+      throw new QueryFailedException(e.message, e.driverError.code);
+    }
   }
 
   async insertUser(email: string, password: string): Promise<InsertResult> {
-    return await this.usersRepository.insert({email, password});
+    try {
+      return await this.usersRepository.insert({email, password});
+    } catch (e) {
+      throw new QueryFailedException(e.message, e.driverError.code);
+    }
   }
 
   async deleteUserById(id: number): Promise<DeleteResult> {
-    return await this.usersRepository.delete(id);
+    try {
+      return await this.usersRepository.delete(id);
+    } catch (e) {
+      throw new QueryFailedException(e.message, e.driverError.code);
+    }
   }
 }

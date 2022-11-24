@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards, ValidationPipe } from '@nestjs/common';
 import { CrudService } from './app.service';
-import { User } from '@app/user';
+import { JwtAuthGuard, User } from '@app/user';
 import { DeleteResult, InsertResult, MongoRepository } from 'typeorm';
 import { CreateUserDto } from '@app/user';
 
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class CrudController {
   constructor(private readonly appService: CrudService) {}

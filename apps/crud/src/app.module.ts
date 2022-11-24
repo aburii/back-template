@@ -3,7 +3,7 @@ import { CrudController } from './app.controller';
 import { CrudService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { config } from 'config';
-import { User, UserModule } from '@app/user';
+import { JwtStrategy, User, UserModule } from '@app/user';
 import { DatabaseModule } from '@app/database/dist/src/database.module';
 
 @Module({
@@ -21,6 +21,6 @@ import { DatabaseModule } from '@app/database/dist/src/database.module';
     UserModule,
   ],
   controllers: [CrudController],
-  providers: [CrudService],
+  providers: [CrudService, JwtStrategy],
 })
 export class CrudModule {}

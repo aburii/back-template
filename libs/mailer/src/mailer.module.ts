@@ -1,7 +1,8 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { MailerModule, MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
-import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
+import { MailService } from './mail.service';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
 export interface MailerOptions {
   author: string,
@@ -15,6 +16,7 @@ export class ConfigurableMailerModule {
       global: true,
       module: ConfigurableMailerModule,
       imports : [MailerModule.forRootAsync({
+        inject: [ConfigService],
         useFactory: (configService: ConfigService) => ({
           transport: {
             host: configService.get<string>('mailer.host'),
@@ -30,7 +32,7 @@ export class ConfigurableMailerModule {
           },
           template: {
             dir: options.templates,
-            adapter: new PugAdapter(),
+            adapter: new HandlebarsAdapter(),
             options: {
               strict: true,
             }
@@ -38,8 +40,8 @@ export class ConfigurableMailerModule {
         })
       })
       ],
-      providers: [MailerService],
-      exports: [MailerService]
+      providers: [MailService],
+      exports: [MailService],
     }
   }
 }

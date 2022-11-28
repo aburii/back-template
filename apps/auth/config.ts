@@ -11,5 +11,13 @@ export const config = () => ({
     name: process.env.DB_NAME,
     username: process.env.DB_USER,
     password: process.env.DB_PWD,
+  },
+  mailer: {
+    host: process.env.MAILER_HOST,
+    port: process.env.MAILER_PORT,
+    auth: {
+      user: process.env.MAILER_USER,
+      password: process.env.MAILER_PASSWORD,
+    }
   }
 })

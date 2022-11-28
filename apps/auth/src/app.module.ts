@@ -6,6 +6,8 @@ import { config } from 'config'
 import { DatabaseModule } from '@app/database/dist/src/database.module';
 import { JwtStrategy, User, UserModule } from '@app/user';
 import { LocalStrategy } from './passport/local.strategy';
+import { VerificationEntity, VerificationModule } from '@app/verification-tokens';
+import { ConfigurableMailerModule } from '@app/mailer';
 
 @Module({
   imports: [
@@ -15,9 +17,14 @@ import { LocalStrategy } from './passport/local.strategy';
       load: [config]
     }),
     UserModule,
+    VerificationModule,
+    ConfigurableMailerModule.register({
+      author: "No Reply <mail@gmail.com>",
+      templates:__dirname + "../mail/templates",
+    }),
     DatabaseModule.register({
       type: 'mysql',
-      entities: [User],
+      entities: [User, VerificationEntity],
       migrations: [__dirname + "../migrations/*.{ts|js}"],
     }),
   ],

@@ -1,7 +1,6 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
-import { ExtractJwt } from 'passport-jwt';
 import { Request } from 'express';
 
 @Injectable()

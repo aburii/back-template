@@ -20,7 +20,7 @@ export class ConfigurableMailerModule {
         useFactory: (configService: ConfigService) => ({
           transport: {
             host: configService.get<string>('mailer.host'),
-            secure: false,
+            secure: true,
             port: configService.get<number>('mailer.port'),
             auth: {
               user: configService.get<string>('mailer.auth.user'),

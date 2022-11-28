@@ -6,6 +6,8 @@ import { config } from 'config';
 import { JwtStrategy, User, UserModule } from '@app/user';
 import { DatabaseModule } from '@app/database/dist/src/database.module';
 import { HashService } from '@app/hash';
+import { VerificationEntity, VerificationModule } from '@app/verification-tokens';
+import { ConfigurableMailerModule } from '@app/mailer';
 
 @Module({
   imports: [
@@ -16,10 +18,15 @@ import { HashService } from '@app/hash';
     }),
     DatabaseModule.register({
       type: 'mysql',
-      entities: [User],
+      entities: [User, VerificationEntity],
       migrations: [__dirname + "../migrations/*.{ts|js}"]
     }),
+    ConfigurableMailerModule.register({
+      author: "No Reply <mail@gmail.com>",
+      templates: __dirname + "../mail/templates",
+    }),
     UserModule,
+    VerificationModule,
   ],
   controllers: [CrudController],
   providers: [CrudService, JwtStrategy, HashService],

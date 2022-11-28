@@ -10,4 +10,7 @@ export class User extends BaseEntity {
 
   @Column({ nullable: false, type: 'varchar' })
   password: string;
+
+  @Column({nullable: false, type: 'bool'})
+  is_verified: boolean;
 }

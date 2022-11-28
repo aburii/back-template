@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { config } from 'config';
 import { JwtStrategy, User, UserModule } from '@app/user';
 import { DatabaseModule } from '@app/database/dist/src/database.module';
+import { HashService } from '@app/hash';
 
 @Module({
   imports: [
@@ -21,6 +22,6 @@ import { DatabaseModule } from '@app/database/dist/src/database.module';
     UserModule,
   ],
   controllers: [CrudController],
-  providers: [CrudService, JwtStrategy],
+  providers: [CrudService, JwtStrategy, HashService],
 })
 export class CrudModule {}

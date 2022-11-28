@@ -12,6 +12,9 @@ export const config = () => ({
     username: process.env.DB_USER,
     password: process.env.DB_PWD,
   },
+  bcrypt: {
+    saltRounds: process.env.BCRYPT_SALTS
+  },
   mailer: {
     host: process.env.MAILER_HOST,
     port: process.env.MAILER_PORT,

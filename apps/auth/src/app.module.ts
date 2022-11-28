@@ -8,6 +8,7 @@ import { JwtStrategy, User, UserModule } from '@app/user';
 import { LocalStrategy } from './passport/local.strategy';
 import { VerificationEntity, VerificationModule } from '@app/verification-tokens';
 import { ConfigurableMailerModule } from '@app/mailer';
+import { HashService } from '@app/hash';
 
 @Module({
   imports: [
@@ -29,6 +30,6 @@ import { ConfigurableMailerModule } from '@app/mailer';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, HashService],
 })
 export class AuthModule {}

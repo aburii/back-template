@@ -5,12 +5,16 @@ import {
 import { QueryFailedException, QueryFailedFilter } from '@app/database';
 import { DeleteResult, InsertResult } from 'typeorm';
 import { User, UserRepository } from '@app/user';
+import { HashService } from '@app/hash';
 
 @Injectable()
 @UseFilters(new QueryFailedFilter())
 export class CrudService {
 
-  constructor(private readonly usersRepository: UserRepository) {}
+  constructor(
+    private readonly usersRepository: UserRepository,
+    private readonly hashService: HashService,
+    ) {}
 
   async findAllUsers(): Promise<Array<User>> {
     try {
@@ -30,8 +34,10 @@ export class CrudService {
 
   async insertUser(email: string, password: string): Promise<InsertResult> {
     try {
-      return await this.usersRepository.insert({email, password});
+      const myHash = await this.hashService.encode(password);
+      return await this.usersRepository.insert({email, password: myHash});
     } catch (e) {
+      console.log(e)
       throw new QueryFailedException(e.message, e.driverError.code);
     }
   }

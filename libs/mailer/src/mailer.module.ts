@@ -4,40 +4,37 @@ import { ConfigService } from '@nestjs/config';
 import { MailService } from './mail.service';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 
-export interface MailerOptions {
-  author: string,
-  templates: string,
-}
-
 @Module({})
 export class ConfigurableMailerModule {
-  static register(options: MailerOptions): DynamicModule {
+  static register(): DynamicModule {
     return {
       global: true,
       module: ConfigurableMailerModule,
       imports : [MailerModule.forRootAsync({
         inject: [ConfigService],
-        useFactory: (configService: ConfigService) => ({
+        useFactory: (configService: ConfigService) =>
+        {
+          console.log(configService.get<string>('mailer.host'), configService.get<string>('mailer.auth.user'), configService.get<string>('mailer.auth.password'))
+          return {
           transport: {
             host: configService.get<string>('mailer.host'),
-            secure: true,
-            port: configService.get<number>('mailer.port'),
+            secure: false,
             auth: {
               user: configService.get<string>('mailer.auth.user'),
               pass: configService.get<string>('mailer.auth.password'),
             },
           },
           defaults: {
-            from: options.author,
+            from: `"App" <${configService.get<string>('mailer.auth.user')}>`,
           },
           template: {
-            dir: options.templates,
+            dir: __dirname + '/../templates',
             adapter: new HandlebarsAdapter(),
             options: {
               strict: true,
             }
           }
-        })
+        }}
       })
       ],
       providers: [MailService],

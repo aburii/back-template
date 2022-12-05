@@ -5,8 +5,8 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc --watch",
+    "build": "nest build",
+    "build:watch": "nest build --watch",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage"

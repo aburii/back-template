@@ -1,16 +1,19 @@
 import { Module } from '@nestjs/common';
 import { CrudController } from './app.controller';
 import { CrudService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
+import {ConfigModule, ConfigService} from '@nestjs/config';
 import { config } from 'config';
 import { JwtStrategy, User, UserModule } from '@app/user';
 import { DatabaseModule } from '@app/database/dist/src/database.module';
 import { HashService } from '@app/hash';
 import { VerificationEntity, VerificationModule } from '@app/verification-tokens';
-import { ConfigurableMailerModule } from '@app/mailer';
+import {ConfigurableMailerModule, MailService} from '@app/mailer';
+import {ScheduleModule} from "@nestjs/schedule";
+import {TasksService} from "./cron/cron.service";
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
@@ -21,14 +24,11 @@ import { ConfigurableMailerModule } from '@app/mailer';
       entities: [User, VerificationEntity],
       migrations: [__dirname + "../migrations/*.{ts|js}"]
     }),
-    ConfigurableMailerModule.register({
-      author: "No Reply <mail@gmail.com>",
-      templates: __dirname + "../mail/templates",
-    }),
+    ConfigurableMailerModule.register(),
     UserModule,
     VerificationModule,
   ],
   controllers: [CrudController],
-  providers: [CrudService, JwtStrategy, HashService],
+  providers: [CrudService, JwtStrategy, HashService, TasksService, MailService],
 })
 export class CrudModule {}

@@ -7,6 +7,7 @@ import { DeleteResult, InsertResult } from 'typeorm';
 import { User, UserRepository } from '@app/user';
 import { HashService } from '@app/hash';
 import { VerificationRepository } from '@app/verification-tokens';
+import {MailService} from "@app/mailer";
 
 @Injectable()
 @UseFilters(new QueryFailedFilter())
@@ -16,6 +17,7 @@ export class CrudService {
     private readonly usersRepository: UserRepository,
     private readonly verificationRepository: VerificationRepository,
     private readonly hashService: HashService,
+    private readonly mailService: MailService,
     ) {}
 
   async generateVerificationCode(id: number): Promise<number> {
@@ -47,11 +49,15 @@ export class CrudService {
   async insertUser(email: string, pass: string): Promise<InsertResult> {
     try {
       const myHash = await this.hashService.encode(pass);
-      return await this.usersRepository.insert({
+      const insertionResult = await this.usersRepository.insert({
         email: email,
         password: myHash.toString(),
         is_verified: false
       });
+      const user = await this.findUserById(insertionResult.raw.insertId);
+      const code = await this.verificationRepository.generateVerificationCode(user.id);
+      await this.mailService.sendVerificationCode(user, code)
+      return insertionResult;
     } catch (e) {
       throw new QueryFailedException(e.message, e.driverError.code);
     }

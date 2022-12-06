@@ -19,10 +19,7 @@ import { HashService } from '@app/hash';
     }),
     UserModule,
     VerificationModule,
-    ConfigurableMailerModule.register({
-      author: "No Reply <mail@gmail.com>",
-      templates: __dirname + "../mail/templates",
-    }),
+    ConfigurableMailerModule.register(),
     DatabaseModule.register({
       type: 'mysql',
       entities: [User, VerificationEntity],

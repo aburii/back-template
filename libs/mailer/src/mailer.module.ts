@@ -14,7 +14,6 @@ export class ConfigurableMailerModule {
         inject: [ConfigService],
         useFactory: (configService: ConfigService) =>
         {
-          console.log(configService.get<string>('mailer.host'), configService.get<string>('mailer.auth.user'), configService.get<string>('mailer.auth.password'))
           return {
           transport: {
             host: configService.get<string>('mailer.host'),

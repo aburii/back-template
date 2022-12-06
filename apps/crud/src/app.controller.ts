@@ -9,7 +9,6 @@ import {MailService} from "@app/mailer";
 export class CrudController {
   constructor(
     private readonly appService: CrudService,
-    private readonly mailService: MailService
   ) {}
 
   @UseGuards(JwtAuthGuard)
@@ -27,11 +26,7 @@ export class CrudController {
   @Post()
   async insertUser(@Body() body: CreateUserDto): Promise<InsertResult> {
     try {
-      const insertionResult = await this.appService.insertUser(body.email, body.password);
-      const code = await this.appService.generateVerificationCode(insertionResult.raw.insertId);
-      const user = await this.appService.findUserById(insertionResult.raw.insertId);
-      const mail = await this.mailService.sendVerificationCode(user, code);
-      return insertionResult;
+      return await this.appService.insertUser(body.email, body.password);
     } catch (e) {
       console.log(e)
       throw new HttpException('Error: ' + e.message, 500)

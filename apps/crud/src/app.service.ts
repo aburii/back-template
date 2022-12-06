@@ -4,7 +4,7 @@ import {
 } from '@nestjs/common';
 import { QueryFailedException, QueryFailedFilter } from '@app/database';
 import { DeleteResult, InsertResult } from 'typeorm';
-import { User, UserRepository } from '@app/user';
+import {CreateUserDto, UpdatePasswordDto, UpdateUserDto, User, UserRepository} from '@app/user';
 import { HashService } from '@app/hash';
 import { VerificationRepository } from '@app/verification-tokens';
 import {MailService} from "@app/mailer";
@@ -41,6 +41,23 @@ export class CrudService {
   async findUserById(id: number): Promise<User> {
     try {
       return await this.usersRepository.findOneBy({id: id});
+    } catch (e) {
+      throw new QueryFailedException(e.message, e.driverError.code);
+    }
+  }
+
+  async updateUser(id: number, update: UpdateUserDto) {
+    try {
+      await this.usersRepository.update({ id: id }, update);
+    } catch (e) {
+      throw new QueryFailedException(e.message, e.driverError.code);
+    }
+  }
+
+  async updatePassword(id: number, update: UpdatePasswordDto) {
+    try {
+      const hash = await this.hashService.encode(update.password);
+      await this.usersRepository.update({ id: id }, { password: hash });
     } catch (e) {
       throw new QueryFailedException(e.message, e.driverError.code);
     }

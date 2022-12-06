@@ -1,9 +1,21 @@
-import {Body, Controller, Delete, Get, HttpException, Param, ParseIntPipe, Post, UseGuards} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpException,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UseGuards
+} from '@nestjs/common';
 import { CrudService } from './app.service';
-import { JwtAuthGuard, User } from '@app/user';
+import {JwtAuthGuard, UpdatePasswordDto, UpdateUserDto, User} from '@app/user';
 import { DeleteResult, InsertResult } from 'typeorm';
 import { CreateUserDto } from '@app/user';
 import {MailService} from "@app/mailer";
+import {UserVerifiedGuard} from "@app/verification-tokens";
 
 @Controller('users')
 export class CrudController {
@@ -23,6 +35,18 @@ export class CrudController {
     return await this.appService.findUserById(id);
   }
 
+  @UseGuards(JwtAuthGuard, UserVerifiedGuard)
+  @Patch(':id')
+  async patchUser(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateUserDto) {
+    return await this.appService.updateUser(id, body)
+  }
+
+  @UseGuards(JwtAuthGuard, UserVerifiedGuard)
+  @Patch(':id/password')
+  async patchPassword(@Param('id', ParseIntPipe) id: number, @Body() body: UpdatePasswordDto) {
+    return await this.appService.updatePassword(id, body);
+  }
+
   @Post()
   async insertUser(@Body() body: CreateUserDto): Promise<InsertResult> {
     try {
@@ -33,7 +57,7 @@ export class CrudController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, UserVerifiedGuard)
   @Delete(':id')
   async removeUser(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
     return await this.appService.deleteUserById(id);

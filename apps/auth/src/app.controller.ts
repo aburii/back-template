@@ -12,7 +12,7 @@ export class AuthController {
   @UseGuards(JwtGuestGuard, LocalGuard)
   @Post('/login')
   async login(@Req() req) {
-    return this.authService.login(req.user); // todo: return payload
+    return this.authService.login(req.user);
   }
 
   @UseGuards(JwtAuthGuard, UserNotVerifiedGuard)

@@ -3,7 +3,7 @@ import { CrudController } from './app.controller';
 import { CrudService } from './app.service';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import { config } from 'config';
-import { JwtStrategy, User, UserModule } from '@app/user';
+import { JwtAtStrategy, User, UserModule } from '@app/user';
 import { DatabaseModule } from '@app/database/dist/src/database.module';
 import { HashService } from '@app/hash';
 import { VerificationEntity, VerificationModule } from '@app/verification-tokens';
@@ -29,6 +29,6 @@ import {TasksService} from "./cron/cron.service";
     VerificationModule,
   ],
   controllers: [CrudController],
-  providers: [CrudService, JwtStrategy, HashService, TasksService, MailService],
+  providers: [CrudService, JwtAtStrategy, HashService, TasksService, MailService],
 })
 export class CrudModule {}

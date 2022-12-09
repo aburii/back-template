@@ -22,6 +22,9 @@ export class User extends BaseEntity {
   @Column({nullable: false, type: 'bool'})
   is_verified: boolean;
 
+  @Column({ nullable: true })
+  token_hash: string;
+
   @CreateDateColumn()
   created_at: Date;
 

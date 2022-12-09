@@ -3,12 +3,13 @@ import { AuthController } from './app.controller';
 import { AuthService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { config } from 'config'
-import { DatabaseModule } from '@app/database/dist/src/database.module';
-import { JwtStrategy, User, UserModule } from '@app/user';
+import { DatabaseModule } from '@app/database';
+import {JwtAtGuard, JwtAtStrategy, JwtRtStrategy, User, UserModule} from '@app/user';
 import { LocalStrategy } from './passport/local.strategy';
 import { VerificationEntity, VerificationModule } from '@app/verification-tokens';
 import { ConfigurableMailerModule } from '@app/mailer';
 import { HashService } from '@app/hash';
+import {APP_GUARD} from "@nestjs/core";
 
 @Module({
   imports: [
@@ -27,6 +28,12 @@ import { HashService } from '@app/hash';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, HashService],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtAtStrategy,
+    JwtRtStrategy,
+    HashService
+  ],
 })
 export class AuthModule {}

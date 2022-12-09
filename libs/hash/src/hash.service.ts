@@ -16,7 +16,7 @@ export class HashService {
     return hash(password, this.getSaltRounds());
   }
 
-  async isMatch(password: string | Buffer, hash: string): Promise<boolean> {
-    return compare(password, hash);
+  async isMatch(toCompare: string | Buffer, hash: string): Promise<boolean> {
+    return compare(toCompare, hash);
   }
 }

@@ -3,8 +3,6 @@ import { IsEmail, IsString, MinLength } from 'class-validator';
 export class UpdateUserDto {
     @IsEmail( { message: "Invalid Email format" } )
     email: string
-
-
 }
 
 export class UpdatePasswordDto {

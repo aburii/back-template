@@ -31,19 +31,11 @@ export class CrudService {
   }
 
   async findAllUsers(): Promise<Array<User>> {
-    try {
-      return await this.usersRepository.find();
-    } catch (e) {
-      throw new QueryFailedException(e.message, e.driverError.code);
-    }
+    return await this.usersRepository.findAll();
   }
 
   async findUserById(id: number): Promise<User> {
-    try {
-      return await this.usersRepository.findOneBy({id: id});
-    } catch (e) {
-      throw new QueryFailedException(e.message, e.driverError.code);
-    }
+    return await this.usersRepository.findById(id);
   }
 
   async updateUser(id: number, update: UpdateUserDto) {
@@ -58,23 +50,6 @@ export class CrudService {
     try {
       const hash = await this.hashService.encode(update.password);
       await this.usersRepository.update({ id: id }, { password: hash });
-    } catch (e) {
-      throw new QueryFailedException(e.message, e.driverError.code);
-    }
-  }
-
-  async insertUser(email: string, pass: string): Promise<InsertResult> {
-    try {
-      const myHash = await this.hashService.encode(pass);
-      const insertionResult = await this.usersRepository.insert({
-        email: email,
-        password: myHash.toString(),
-        is_verified: false
-      });
-      const user = await this.findUserById(insertionResult.raw.insertId);
-      const code = await this.verificationRepository.generateVerificationCode(user.id);
-      await this.mailService.sendVerificationCode(user, code)
-      return insertionResult;
     } catch (e) {
       throw new QueryFailedException(e.message, e.driverError.code);
     }

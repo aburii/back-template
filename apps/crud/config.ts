@@ -1,10 +1,9 @@
-import * as process from "process";
-
 export const config = () => ({
   port: process.env.PORT,
   env: process.env.NODE_ENV,
   jwt: {
-    secret: process.env.JWT_SECRET,
+    "at-secret": process.env.JWT_AT_SECRET,
+    "rt-secret": process.env.JWT_RT_SECRET,
     saltRounds: process.env.JWT_SALT_ROUNDS
   },
   database: {

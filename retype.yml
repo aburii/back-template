@@ -1,0 +1,8 @@
+input: documentation/
+output: .retype
+url: https://aburii.github.io/back-template/
+branding:
+  title: Back Template
+  label: Docs
+footer:
+  copyright: "&copy; MIT LICENSE"

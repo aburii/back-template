@@ -1,8 +1,11 @@
-version: '3.3'
+version: '3.9'
 services:
   app:
     image: node:18-alpine
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: ${NODE_ENV}
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -10,8 +13,6 @@ services:
       - db
     ports:
       - '3000:3000'
-    links:
-      - 'db:localhost'
     environment:
       PORT: ${PORT}
       NODE_ENV: ${NODE_ENV}
@@ -31,11 +32,12 @@ services:
       - .env
   db:
     image: mariadb:10.2
-    build: ./database
     container_name: 'mariadb-1'
     restart: on-failure
+    env_file:
+      - .env.db
     environment:
-      MYSQL_DATABASE: 'test'
+      MYSQL_DATABASE: ''
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'

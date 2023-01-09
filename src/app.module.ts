@@ -25,10 +25,7 @@ import { CrudModule } from './modules/crud/crud.module';
         type: 'mysql',
         host: configService.get<string>('database.host'),
         port: configService.get<number>('database.port'),
-        database:
-          configService.get<string>('env') == 'development'
-            ? 'test'
-            : configService.get<string>('database.name'),
+        database: configService.get<string>('database.name'),
         username: configService.get<string>('database.username'),
         password: configService.get<string>('database.password'),
         synchronize: configService.get<string>('env') == 'development',

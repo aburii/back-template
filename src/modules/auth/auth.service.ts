@@ -81,7 +81,8 @@ export class AuthService {
     const usersVerification = await this.verificationRepository.findOneBy({
       user_id: userId,
     });
-    if (usersVerification.code == code) {
+
+    if (usersVerification && usersVerification.code == code) {
       await this.verificationRepository.delete({ id: usersVerification.id });
       await this.usersRepository.update({ id: userId }, { is_verified: true });
     } else {
@@ -91,7 +92,7 @@ export class AuthService {
       });
     }
     return {
-      access_token: this.jwtService.sign({ verified: true, sub: userId }),
+      verified: true,
     };
   }
 

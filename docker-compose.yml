@@ -1,26 +1,48 @@
 version: '3.3'
 services:
+  app:
+    image: node:18-alpine
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - db
+    ports:
+      - '3000:3000'
+    links:
+      - 'db:localhost'
+    environment:
+      PORT: ${PORT}
+      NODE_ENV: ${NODE_ENV}
+      DB_HOST: "mariadb-1"
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PWD: ${DB_PWD}
+      JWT_AT_SECRET: ${JWT_AT_SECRET}
+      JWT_RT_SECRET: ${JWT_RT_SECRET}
+      JWT_SALT_ROUNDS: ${JWT_SALT_ROUNDS}
+      MAILER_HOST: ${MAILER_HOST}
+      MAILER_PORT: ${MAILER_PORT}
+      MAILER_USER: ${MAILER_USER}
+      MAILER_PASSWORD: ${MAILER_PASSWORD}
+    env_file:
+      - .env
   db:
     image: mariadb:10.2
+    build: ./database
+    container_name: 'mariadb-1'
     restart: on-failure
     environment:
-      MYSQL_DATABASE: 'random'
-      # So you don't have to use root, but you can if you like
+      MYSQL_DATABASE: 'test'
       MYSQL_USER: 'user'
-      # You can use whatever password you like
       MYSQL_PASSWORD: 'password'
-      # Password for root access
       MYSQL_ROOT_PASSWORD: 'password'
     ports:
-      # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
-    expose:
-      # Opens port 3306 on the container
-      - '3306'
-      # Where our data will be persisted
     volumes:
       - my-db:/var/lib/mysql
 
-# Names our volume
 volumes:
   my-db:

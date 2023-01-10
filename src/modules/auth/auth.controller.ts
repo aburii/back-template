@@ -49,6 +49,7 @@ export class AuthController {
   }
 
   @UseGuards(UserNotVerifiedGuard)
+  @HttpCode(HttpStatus.CREATED)
   @Post('/redeem-verification-code')
   async redeemVerificationCode(@Req() req) {
     try {
@@ -63,6 +64,7 @@ export class AuthController {
 
   @Public()
   @UseGuards(JwtRtGuard)
+  @HttpCode(HttpStatus.CREATED)
   @Post('/refresh')
   async refreshTokens(@RequestUser() user) {
     return await this.authService.refresh(user.sub, user.refreshToken);

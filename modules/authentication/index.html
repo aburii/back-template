@@ -10,32 +10,33 @@
     <meta name="generator" content="Retype 2.4.0">
 
     <!-- Primary Meta Tags -->
-    <title>Getting Started</title>
-    <meta name="title" content="Getting Started">
-    <meta name="description" content="I suggest that you install NestJS Framework" />
+    <title>Authentication</title>
+    <meta name="title" content="Authentication">
+    <meta name="description" content="Authentication module gathers all the logic from registering users to logging them out. This gathers verification too through tokens sent by email." />
 
     <!-- Canonical -->
-    <link rel="canonical" href="https://aburii.github.io/back-template/" />
+    <link rel="canonical" href="https://aburii.github.io/back-template/modules/authentication/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://aburii.github.io/back-template/">
-    <meta property="og:title" content="Getting Started">
-    <meta property="og:description" content="I suggest that you install NestJS Framework">
+    <meta property="og:url" content="https://aburii.github.io/back-template/modules/authentication/">
+    <meta property="og:title" content="Authentication">
+    <meta property="og:description" content="Authentication module gathers all the logic from registering users to logging them out. This gathers verification too through tokens sent by email.">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://aburii.github.io/back-template/">
-    <meta property="twitter:title" content="Getting Started">
-    <meta property="twitter:description" content="I suggest that you install NestJS Framework">
+    <meta property="twitter:url" content="https://aburii.github.io/back-template/modules/authentication/">
+    <meta property="twitter:title" content="Authentication">
+    <meta property="twitter:description" content="Authentication module gathers all the logic from registering users to logging them out. This gathers verification too through tokens sent by email.">
 
     <script>(function () { var el = document.documentElement, m = localStorage.getItem("/back-template/doc_theme"), wm = window.matchMedia; if (m === "dark" || (!m && wm && wm("(prefers-color-scheme: dark)").matches)) { el.classList.add("dark") } else { el.classList.remove("dark") } })();</script>
 
-    <link href="resources/css/retype.css?v=2.4.0.726627313307" rel="stylesheet" />
+    <link href="../../resources/css/retype.css?v=2.4.0.726627313307" rel="stylesheet" />
 
-    <script type="text/javascript" src="resources/js/config.js?v=2.4.0.726627313307" data-turbo-eval="false" defer></script>
-    <script type="text/javascript" src="resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
-    <script id="lunr-js" type="text/javascript" src="resources/js/lunr.js?v=2.4.0.726627313307" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/config.js?v=2.4.0.726627313307" data-turbo-eval="false" defer></script>
+    <script type="text/javascript" src="../../resources/js/retype.js?v=2.4.0" data-turbo-eval="false" defer></script>
+    <script id="lunr-js" type="text/javascript" src="../../resources/js/lunr.js?v=2.4.0.726627313307" data-turbo-eval="false" defer></script>
+    <script id="prism-js" type="text/javascript" src="../../resources/js/prism.js?v=2.4.0.726627313307" defer></script>
 </head>
 <body>
     <div id="docs-app" class="relative text-base antialiased text-gray-700 bg-white font-body dark:bg-dark-850 dark:text-dark-300">
@@ -50,7 +51,7 @@
                 <!-- Logo -->
                 <div class="flex items-center justify-between h-full py-2 md:w-75">
                     <div class="flex items-center px-2 md:px-6">
-                        <a id="docs-site-logo" href="" class="flex items-center leading-snug text-xl">
+                        <a id="docs-site-logo" href="../../" class="flex items-center leading-snug text-xl">
                             <span class="dark:text-white font-semibold line-clamp-1 md:line-clamp-2">Back Template</span>
                         </a><span class="hidden px-2 py-1 ml-4 text-sm font-semibold leading-none text-root-logo-label-text bg-root-logo-label-bg rounded-sm md:inline-block">Docs</span>
                     </div>
@@ -153,51 +154,195 @@
                                 <div id="docs-sidebar-right-toggle"></div>
                 
                                 <!-- Page content  -->
-<doc-anchor-target id="getting-started" class="break-words">
+<doc-anchor-target id="authentication" class="break-words">
     <h1>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#getting-started">#</doc-anchor-trigger>
-        <span>Getting Started</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#authentication">#</doc-anchor-trigger>
+        <span>Authentication</span>
     </h1>
 </doc-anchor-target>
-<doc-anchor-target id="prerequisites">
+<doc-anchor-target id="logic">
+    <h3>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#logic">#</doc-anchor-trigger>
+        <span>Logic</span>
+    </h3>
+</doc-anchor-target>
+<p>Authentication module gathers all the logic from registering users to logging them out.
+This gathers verification too through tokens sent by email.</p>
+<doc-anchor-target id="endpoints">
     <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#prerequisites">#</doc-anchor-trigger>
-        <span>Prerequisites</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#endpoints">#</doc-anchor-trigger>
+        <span>Endpoints</span>
     </h2>
 </doc-anchor-target>
-<p>I suggest that you install <a href="https://docs.nestjs.com/cli/overview">NestJS Framework</a></p>
-<p><span class="docs-emoji">&#x26A0;&#xFE0F;</span> Read <a href="https://docs.nestjs.com/first-steps">NestJS documentation</a> if you are new to this framework</p>
-<p>If you do not have <a href="https://yarnpkg.com/">yarn</a> installed <code v-pre>npm install --global yarn</code>.</p>
-<doc-anchor-target id="first-steps">
-    <h2>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#first-steps">#</doc-anchor-trigger>
-        <span>First steps</span>
-    </h2>
-</doc-anchor-target>
-<doc-anchor-target id="installation">
+<doc-anchor-target id="public-routes">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#installation">#</doc-anchor-trigger>
-        <span>Installation</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#public-routes">#</doc-anchor-trigger>
+        <span>Public Routes</span>
     </h3>
 </doc-anchor-target>
-<p>In order to install packages run <code v-pre>yarn install</code>.</p>
-<doc-anchor-target id="environment">
+<hr />
+<doc-anchor-target id="post-register">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#post-register">#</doc-anchor-trigger>
+        <span>POST <code v-pre>/register</code></span>
+    </h4>
+</doc-anchor-target>
+<p><span class="no-link inline-flex items-center justify-center font-medium leading-none whitespace-nowrap text-green-700 bg-green-100 h-6 px-2 text-xs rounded-md">
+    <span>201</span>
+</span></p>
+<doc-anchor-target id="body">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#body">#</doc-anchor-trigger>
+        <span>Body</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  &quot;email&quot;: &quot;email@example.com&quot;,
+  &quot;password&quot;: &quot;password&quot;
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="response">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#response">#</doc-anchor-trigger>
+        <span>Response</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  &quot;access_token&quot;: &quot;&quot;,
+  &quot;refresh_token&quot;: &quot;&quot;
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="post-login">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#post-login">#</doc-anchor-trigger>
+        <span>POST <code v-pre>/login</code></span>
+    </h4>
+</doc-anchor-target>
+<p><span class="no-link inline-flex items-center justify-center font-medium leading-none whitespace-nowrap text-green-700 bg-green-100 h-6 px-2 text-xs rounded-md">
+    <span>200</span>
+</span></p>
+<doc-anchor-target id="body-1">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#body-1">#</doc-anchor-trigger>
+        <span>Body</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  &quot;email&quot;: &quot;email@example.com&quot;,
+  &quot;password&quot;: &quot;password&quot;
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="response-1">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#response-1">#</doc-anchor-trigger>
+        <span>Response</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  &quot;access_token&quot;: &quot;&quot;,
+  &quot;refresh_token&quot;: &quot;&quot;
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="protected-routes">
     <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#environment">#</doc-anchor-trigger>
-        <span>Environment</span>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#protected-routes">#</doc-anchor-trigger>
+        <span>Protected Routes</span>
     </h3>
 </doc-anchor-target>
-<p>Create a <code v-pre>.env</code> file following the <code v-pre>.env.example</code> file,
-this will allow you to have the application running.</p>
-<p>Create a <code v-pre>.env.db</code> file following its <code v-pre>.env.db.example</code> file,
-this will allow you to have the configs for the database.</p>
-<doc-anchor-target id="run-the-api">
-    <h3>
-        <doc-anchor-trigger class="header-anchor-trigger" to="#run-the-api">#</doc-anchor-trigger>
-        <span>Run the API</span>
-    </h3>
+<p><span class="no-link inline-flex items-center justify-center font-medium leading-none whitespace-nowrap text-red-600 bg-red-100 h-6 px-2 text-xs rounded-md">
+    <span>401</span>
+</span> <span class="no-link inline-flex items-center justify-center font-medium leading-none whitespace-nowrap text-red-600 bg-red-100 h-6 px-2 text-xs rounded-md">
+    <span>403</span>
+</span></p>
+<p>Taking the <code v-pre>access_token</code> object as <strong>Bearer Token</strong> in the Authentication Header section.</p>
+<hr />
+<doc-anchor-target id="post-logout">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#post-logout">#</doc-anchor-trigger>
+        <span>POST <code v-pre>/logout</code></span>
+    </h4>
 </doc-anchor-target>
-<p>In order to run the API with its database run <code v-pre>docker compose up</code>.</p>
+<p><span class="no-link inline-flex items-center justify-center font-medium leading-none whitespace-nowrap text-green-700 bg-green-100 h-6 px-2 text-xs rounded-md">
+    <span>200</span>
+</span></p>
+<p>Logs out the user by deleting its <code v-pre>refresh_token</code> in the DB.</p>
+<hr />
+<doc-anchor-target id="post-verify">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#post-verify">#</doc-anchor-trigger>
+        <span>POST <code v-pre>/verify</code></span>
+    </h4>
+</doc-anchor-target>
+<p><span class="no-link inline-flex items-center justify-center font-medium leading-none whitespace-nowrap text-green-700 bg-green-100 h-6 px-2 text-xs rounded-md">
+    <span>200</span>
+</span></p>
+<p><span class="docs-emoji">&#x2139;&#xFE0F;</span> User must NOT be verified</p>
+<p>Verifies the code sent by email to the users.</p>
+<p>Grants user more permission on success</p>
+<doc-anchor-target id="body-2">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#body-2">#</doc-anchor-trigger>
+        <span>Body</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  &quot;code&quot;: 234567
+}</code></pre>
+</doc-codeblock></div>
+<doc-anchor-target id="response-2">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#response-2">#</doc-anchor-trigger>
+        <span>Response</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  &quot;access_token&quot;: &quot;&quot;,
+  &quot;refresh_token&quot;: &quot;&quot;
+}</code></pre>
+</doc-codeblock></div>
+<hr />
+<doc-anchor-target id="post-redeem-verification-code">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#post-redeem-verification-code">#</doc-anchor-trigger>
+        <span>POST <code v-pre>/redeem-verification-code</code></span>
+    </h4>
+</doc-anchor-target>
+<p><span class="no-link inline-flex items-center justify-center font-medium leading-none whitespace-nowrap text-green-700 bg-green-100 h-6 px-2 text-xs rounded-md">
+    <span>201</span>
+</span></p>
+<p><span class="docs-emoji">&#x2139;&#xFE0F;</span> User must NOT be verified</p>
+<p>Sends an email with verification code</p>
+<hr />
+<doc-anchor-target id="post-refresh">
+    <h4>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#post-refresh">#</doc-anchor-trigger>
+        <span>POST <code v-pre>/refresh</code></span>
+    </h4>
+</doc-anchor-target>
+<p><span class="no-link inline-flex items-center justify-center font-medium leading-none whitespace-nowrap text-green-700 bg-green-100 h-6 px-2 text-xs rounded-md">
+    <span>201</span>
+</span></p>
+<p><span class="docs-emoji">&#x26A0;&#xFE0F;</span> Takes the refresh token as <strong>Bearer Token</strong> in the Authentication Header</p>
+<doc-anchor-target id="response-3">
+    <h5>
+        <doc-anchor-trigger class="header-anchor-trigger" to="#response-3">#</doc-anchor-trigger>
+        <span>Response</span>
+    </h5>
+</doc-anchor-target>
+<div class="codeblock-wrapper"><doc-codeblock>
+<pre class="language-json"><code v-pre class="language-json">{
+  &quot;access_token&quot;: &quot;&quot;,
+  &quot;refresh_token&quot;: &quot;&quot;
+}</code></pre>
+</doc-codeblock></div>
 
                                 
                                 <!-- Required only on API pages -->
@@ -207,13 +352,20 @@ this will allow you to have the configs for the database.</p>
                             
                                 <nav class="flex mt-14">
                                     <div class="w-1/2">
+                                        <a class="px-5 py-4 h-full flex items-center break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l-lg transition-colors duration-150 relative hover:z-5" href="../../">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="mr-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19 11H7.41l5.29-5.29a.996.996 0 10-1.41-1.41l-7 7a1 1 0 000 1.42l7 7a1.024 1.024 0 001.42-.01.996.996 0 000-1.41L7.41 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
+                                            <span>
+                                                <span class="block text-xs font-normal text-gray-400 dark:text-dark-400">Previous</span>
+                                                <span class="block mt-1">Getting Started</span>
+                                            </span>
+                                        </a>
                                     </div>
                             
                                     <div class="w-1/2">
-                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-l rounded-r-lg transition-colors duration-150 relative hover:z-5" href="modules/authentication/">
+                                        <a class="px-5 py-4 -mx-px h-full flex items-center justify-end break-normal font-medium text-blue-500 dark:text-blue-400 border border-gray-300 hover:border-gray-400 dark:border-dark-650 dark:hover:border-dark-450 rounded-r-lg transition-colors duration-150 relative hover:z-5" href="../../modules/crud/">
                                             <span>
                                                 <span class="block text-xs font-normal text-right text-gray-400 dark:text-dark-400">Next</span>
-                                                <span class="block mt-1">Authentication</span>
+                                                <span class="block mt-1">CRUD</span>
                                             </span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="ml-3" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" overflow="visible"><path d="M19.92 12.38a1 1 0 00-.22-1.09l-7-7a.996.996 0 10-1.41 1.41l5.3 5.3H5c-.55 0-1 .45-1 1s.45 1 1 1h11.59l-5.29 5.29a.996.996 0 000 1.41c.19.2.44.3.7.3s.51-.1.71-.29l7-7c.09-.09.16-.21.21-.33z" /><path fill="none" d="M0 0h24v24H0z" /></svg>
                                         </a>
@@ -257,6 +409,6 @@ this will allow you to have the configs for the database.</p>
 
     <div id="docs-overlay-target"></div>
 
-    <script>window.__DOCS__ = { "title": "Getting Started", isRoot: true, level: 0, icon: "file", hasPrism: false, hasMermaid: false, hasMath: false }</script>
+    <script>window.__DOCS__ = { "title": "Authentication", level: 2, icon: "file", hasPrism: true, hasMermaid: false, hasMath: false }</script>
 </body>
 </html>

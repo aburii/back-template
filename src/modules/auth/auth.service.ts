@@ -31,13 +31,15 @@ export class AuthService {
       email: credentials.email,
     });
 
+    if (!user) {
+      throw new NotFoundException();
+    }
+
     const myvar = await this.hashService.isMatch(
       credentials.password,
       user.password,
     );
-    if (!user) {
-      throw new NotFoundException();
-    } else if (!myvar)
+    if (!myvar)
       throw new UnauthorizedException({ message: 'Invalid password' });
     const { password, ...data } = user;
     return data;
@@ -91,9 +93,8 @@ export class AuthService {
         statusCode: HttpStatus.BAD_REQUEST,
       });
     }
-    return {
-      verified: true,
-    };
+    const user = await this.usersRepository.findById(userId);
+    return this.generateAndUpdateTokens(user);
   }
 
   async redeemVerificationCode(userId: number) {

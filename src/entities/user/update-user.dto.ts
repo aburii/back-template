@@ -1,7 +1,7 @@
 import { IsEmail, IsString, MinLength } from 'class-validator';
 
 export class UpdateUserDto {
-  @IsEmail(null, { message: 'Invalid Email format' })
+  @IsEmail({}, { message: 'Invalid Email format' })
   email: string;
 }
 
